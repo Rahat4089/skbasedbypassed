@@ -272,6 +272,15 @@ if (isset($status)) {
           strpos($result2, 'Thank you for your order') !== false ||
           strpos($result2, 'Thank You for your order') !== false ||
           strpos($result2, 'Thank You For Your Order') !== false ||
+          strpos($result2, 'Thank you for your order!') !== false ||
+          strpos($result2, 'Thank You for your order!') !== false ||
+          strpos($result2, 'Thank You For Your Order!') !== false ||
+          strpos($result2, 'Thank you for your order.') !== false ||
+          strpos($result2, 'Thank You for your order.') !== false ||
+          strpos($result2, 'Thank You For Your Order.') !== false ||
+          strpos($result2, 'Thank you for your order,') !== false ||
+          strpos($result2, 'Thank You for your order,') !== false ||
+          strpos($result2, 'Thank You For Your Order,') !== false ||
           strpos($result2, 'success:true') !== false) {
     
     $status = "𝐀𝐩𝐩𝐫𝐨𝐯𝐞𝐝 ✅";
@@ -289,6 +298,8 @@ if (isset($status)) {
     
 } elseif (strpos($result2, "incorrect_cvc") !== false || 
           strpos($result1, "incorrect_cvc") !== false ||
+          strpos($result2, "invalid_cvc") !== false || 
+          strpos($result1, "invalid_cvc") !== false || 
           strpos($result2, "security code is incorrect") !== false ||
           strpos($result2, "Your card's security code is incorrect") !== false) {
     
@@ -350,13 +361,6 @@ if (isset($status)) {
 } elseif (strpos($result2, "setup_intent_authentication_failure") !== false) {
     $status = "𝐃𝐞𝐜𝐥𝐢𝐧𝐞𝐝 ❌";
     $response = "setup_intent_authentication_failure";
-    $hits = "NO";
-    
-} elseif (strpos($result2, "invalid_cvc") !== false || 
-          strpos($result1, "invalid_cvc") !== false) {
-    
-    $status = "𝐃𝐞𝐜𝐥𝐢𝐧𝐞𝐝 ❌";
-    $response = "invalid_cvc";
     $hits = "NO";
     
 } elseif (strpos($result2, "stolen_card") !== false) {
@@ -435,7 +439,7 @@ if (isset($status)) {
           strpos($result1, "Your account cannot currently make live charges") !== false) {
     
     $status = "𝐃𝐞𝐜𝐥𝐢𝐧𝐞𝐝 ❌";
-    $response = "stripe error . contact support@stripe.com for more details";
+    $response = "Your Stripe Key Isn't Live";
     $hits = "NO";
     
 } elseif (strpos($result2, "Your card was declined") !== false || 
@@ -466,13 +470,17 @@ if ($hits == "CHARGED") {
         echo '➤ Receipt: <span style="color: green;" class="badge"><a href="' . $receipturl . '" target="_blank"><b>Here</b></a></span>
         <br>';
     }
-    echo '➤ Checked from: <b>' . $domain . '</b></font><br>';
+    echo '➤ Amount: '.$amt.'$<br>
+    ➤ Checker By: Ichigo Kurosaki<br>
+    ➤ Checked from: <b>' . $domain . '</b></font><br>';
     
 } elseif ($hits == "LIVE") {
     echo '<span class="badge badge-info">'.$status.'</span> <font class="text-white"><b>'.$lista.'</b></font> <font class="text-white">
     <br>
     ➤ Response: '.$response.'
     <br>
+    ➤ Amount: '.$amt.'$<br>
+    ➤ Checker By: Ichigo Kurosaki<br>
     ➤ Checked from: <b>' . $domain . '</b></font><br>';
     
 } else {
@@ -480,6 +488,8 @@ if ($hits == "CHARGED") {
     <br>
     ➤ Response: '.$response.'
     <br>
+    ➤ Amount: '.$amt.'$<br>
+    ➤ Checker By: Ichigo Kurosaki<br>
     ➤ Checked from: <b>' . $domain . '</b></font><br>';
 }
 
