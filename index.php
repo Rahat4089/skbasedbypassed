@@ -868,6 +868,7 @@
                                 <span> </span>
                                 <span> </span>
                                 <h4 class="mb-2"><strong>SK BASED (INTEGRATION OFF) BYPASSED CHECKER</strong></h4>
+								<div class="check-sk-link" onclick="window.location.href='/sk_key'">CHECK SK</div>
 
                                 <textarea rows="16" id="lista" class="form-control text-center form-checker mb-2"
                                     placeholder="Enter credit cards here (one per line)"></textarea>
@@ -1557,5 +1558,6 @@
         <script src="theme-assets/js/core/libraries/jquery.min.js" type="text/javascript"></script>
         <script src="theme-assets/js/ghost.js"></script>
 </body>
+
 
 </html>
