@@ -298,8 +298,6 @@ if (isset($status)) {
     
 } elseif (strpos($result2, "incorrect_cvc") !== false || 
           strpos($result1, "incorrect_cvc") !== false ||
-          strpos($result2, "invalid_cvc") !== false || 
-          strpos($result1, "invalid_cvc") !== false || 
           strpos($result2, "security code is incorrect") !== false ||
           strpos($result2, "Your card's security code is incorrect") !== false) {
     
@@ -361,6 +359,13 @@ if (isset($status)) {
 } elseif (strpos($result2, "setup_intent_authentication_failure") !== false) {
     $status = "𝐃𝐞𝐜𝐥𝐢𝐧𝐞𝐝 ❌";
     $response = "setup_intent_authentication_failure";
+    $hits = "NO";
+    
+} elseif (strpos($result2, "invalid_cvc") !== false || 
+          strpos($result1, "invalid_cvc") !== false) {
+    
+    $status = "𝐃𝐞𝐜𝐥𝐢𝐧𝐞𝐝 ❌";
+    $response = "invalid_cvc";
     $hits = "NO";
     
 } elseif (strpos($result2, "stolen_card") !== false) {
@@ -498,3 +503,4 @@ error_log("Final Status: " . $status . " | Response: " . $response . " | Hits: "
 
 ob_flush();
 ?>
+
