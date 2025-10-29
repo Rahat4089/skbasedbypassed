@@ -848,6 +848,34 @@
             margin-left: -15px;
         }
     }
+	/* NEW: Added style for the CHECK SK text with glowing effect */
+	.check-sk-link {
+	    color: #00ffff; /* Cyan color */
+	    cursor: pointer;
+	    text-decoration: underline;
+	    margin-top: 5px;
+	    display: inline-block;
+	    font-size: 14px;
+	    font-weight: bold;
+	    text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff;
+	    animation: glow 1.5s ease-in-out infinite alternate;
+	    transition: all 0.3s ease;
+	}
+	
+	.check-sk-link:hover {
+	    color: #ffffff;
+	    text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
+	    transform: scale(1.05);
+	}
+	
+	@keyframes glow {
+	    from {
+	        text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff;
+	    }
+	    to {
+	        text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff, 0 0 40px #00ffff;
+	    }
+	}
     </style>
 </head>
 
@@ -1561,3 +1589,4 @@
 
 
 </html>
+
